@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NRC-ICT CHAT ROOM</title>
+  <link rel="stylesheet" href="/CSS FILE/chat-app-style.css">
+</head>
+<body>
+  <div class="chat-container">
+    <!-- Chat Header -->
+    <div class="chat-header">
+      <h2>NRC-ICT DEPARTMENT CHAT ROOM</h2>
+      <div class="icons">
+        <i class="settings">⚙️</i>
+        <img src="/IMAGE FILE/logout.png" alt="Logout" class="logout-icon" id="logoutBtn">
+      </div>
+    </div>
+
+    <!-- User List Sidebar -->
+    <aside class="user-list">
+      <h2>Users</h2>
+      <ul>
+        <!-- User list items will be dynamically added here via JS -->
+      </ul>
+    </aside>
+
+    <!-- Main Chat Area -->
+    <main class="chat-area">
+      <!-- Example messages can stay or be removed; these are optional placeholders -->
+      <div class="message">
+        <span class="avatar">👨</span>
+        <div class="bubble">
+          <p><strong>Arinze:</strong> Hi everyone!</p>
+          <small>10:01 am</small>
+        </div>
+      </div>
+      <div class="message">
+        <span class="avatar">👩</span>
+        <div class="bubble">
+          <p><strong>Ekaite:</strong> How are you doing?</p>
+          <small>10:01 am</small>
+        </div>
+      </div>
+    </main>
+
+    <!-- Chat Input Footer -->
+    <footer class="chat-input">
+      <input type="text" placeholder="Type a message...">
+      <button class="send-btn">
+        <img src="/IMAGE FILE/SEND.png" class="send-icon" alt="send">
+      </button>
+    </footer>
+  </div>
+  <script src="/js file/chat-script.js"></script>
+</body>
+</html>
