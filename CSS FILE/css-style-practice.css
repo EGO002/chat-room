@@ -172,3 +172,57 @@ body, html {
   35%  { opacity: 0; }
   100% { opacity: 0; }
 }
+
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  #login-container {
+    width: 100%;
+    padding: 15px;
+    box-shadow: none; /* optional, makes it flatter for mobile */
+    border: none;
+  }
+
+  #login-container h1 {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  #login-container input[type="text"],
+  #login-container input[type="password"] {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  a {
+    display: block;
+    text-align: center;
+    margin: 5px 0;
+  }
+
+  footer.contact-section {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .footer-container h2 {
+    font-size: 1rem;
+  }
+
+  .contact-info {
+    font-size: 0.9rem;
+  }
+
+  .slideshow img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+}
