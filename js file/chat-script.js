@@ -105,3 +105,10 @@ users.forEach(user => {
 
   userList.appendChild(li);
 });
+
+
+const SUPABASE_URL = "https://bzdrxawzzvypxaxehvic.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ6ZHJ4YXd6enZ5cHhheGVodmljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI4NDk5MjgsImV4cCI6MjA3ODQyNTkyOH0.2hRpcTpui-DGi-4O3rMmJUX7OkGh2QWP8nKbTya94Tw";
+
+
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
