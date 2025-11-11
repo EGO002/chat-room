@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NRC-ICT CHAT ROOM</title>
   <link rel="stylesheet" href="./CSS FILE/chat-app-style.css">
+
+ 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 <body>
   <div class="chat-container">
@@ -27,7 +30,7 @@
 
     <!-- Main Chat Area -->
     <main class="chat-area">
-      <!-- Example messages can stay or be removed; these are optional placeholders -->
+      <!-- Example messages (optional placeholders) -->
       <div class="message">
         <span class="avatar">👨</span>
         <div class="bubble">
@@ -52,6 +55,8 @@
       </button>
     </footer>
   </div>
-  <script src="./js file/chat-script.js"></script>
+
+  <!-- Your chat JS file, loaded after Supabase library -->
+  <script src="./js file/chat-script.js" defer></script>
 </body>
 </html>
