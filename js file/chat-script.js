@@ -103,8 +103,8 @@ sendBtn.addEventListener("click", async () => {
     const { data, error } = await supabaseClient
       .from("messages")
       .insert([{
-        user_id: "dummy-user-id",     // Replace with actual user_id (from session/user record)
-        room_id: "dummy-room-id",     // Replace with actual room_id
+        user_id: "42a4d005-c820-4c49-9228-5c22f9e29f6e",     // Replace with actual user_id (from session/user record)
+        room_id: "b74fb217-9515-474b-bee8-110f80563884",     // Replace with actual room_id
         content: text
       }]);
     if (error) console.error("Error sending message:", error);
