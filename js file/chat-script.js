@@ -35,7 +35,25 @@ if (logoutElement) {
   };
 }
 
-function displayMessage(message) {
+// --- CORRECTED SECTION ---
+// Fetch users and build a user_id->name map
+async function fetchUsersMap() {
+  const { data, error } = await supabaseClient
+    .from("users")
+    .select("id, name");
+  if (error) {
+    console.error("Error loading users:", error);
+    return {};
+  }
+  const map = {};
+  data.forEach(user => {
+    map[user.id] = user.name;
+  });
+  return map;
+}
+
+// Display messages using userMap for names
+function displayMessage(message, userMap = {}) {
   const messageDiv = document.createElement("div");
   messageDiv.classList.add("message");
 
@@ -48,7 +66,8 @@ function displayMessage(message) {
 
   const p = document.createElement("p");
   const strong = document.createElement("strong");
-  strong.textContent = message.user_name || "User" + ":";
+  // Show actual user name or 'User'
+  strong.textContent = (userMap[message.user_id] || "User") + ":";
   p.appendChild(strong);
   p.appendChild(document.createTextNode(" " + message.content));
 
@@ -65,6 +84,7 @@ function displayMessage(message) {
 }
 
 async function loadMessages() {
+  const usersMap = await fetchUsersMap();
   const { data, error } = await supabaseClient
     .from("messages")
     .select("*")
@@ -72,7 +92,7 @@ async function loadMessages() {
     .limit(50);
 
   if (error) console.error("Error loading messages:", error);
-  else data.forEach(displayMessage);
+  else data.forEach(msg => displayMessage(msg, usersMap));
 }
 
 loadMessages();
@@ -83,15 +103,15 @@ sendBtn.addEventListener("click", async () => {
     const { data, error } = await supabaseClient
       .from("messages")
       .insert([{
-        user_id: "dummy-user-id",
-        room_id: "dummy-room-id",
-        content: text,
-        user_name: currentUser
+        user_id: "dummy-user-id",     // Replace with actual user_id (from session/user record)
+        room_id: "dummy-room-id",     // Replace with actual room_id
+        content: text
       }]);
-
     if (error) console.error("Error sending message:", error);
-    else displayMessage(data[0]);
-
+    else {
+      const usersMap = await fetchUsersMap();
+      displayMessage(data[0], usersMap);
+    }
     input.value = "";
   }
 });
