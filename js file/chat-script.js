@@ -18,7 +18,7 @@ const users = [currentUser, ...otherUsers];
 users.forEach(user => {
   const li = document.createElement("li");
   const img = document.createElement("img");
-  img.src = "/IMAGE FILE/male image.png";
+  img.src = "/IMAGE FILE/male image.png"; // If missing, this will just not show an image
   li.appendChild(img);
   li.appendChild(document.createTextNode(user));
   if (user === currentUser) {
@@ -35,8 +35,7 @@ if (logoutElement) {
   };
 }
 
-// --- CORRECTED SECTION ---
-// Fetch users and build a user_id->name map
+// Fetch users and build a user_id -> name map
 async function fetchUsersMap() {
   const { data, error } = await supabaseClient
     .from("users")
@@ -46,9 +45,11 @@ async function fetchUsersMap() {
     return {};
   }
   const map = {};
-  data.forEach(user => {
-    map[user.id] = user.name;
-  });
+  if (data) {
+    data.forEach(user => {
+      map[user.id] = user.name;
+    });
+  }
   return map;
 }
 
@@ -66,7 +67,6 @@ function displayMessage(message, userMap = {}) {
 
   const p = document.createElement("p");
   const strong = document.createElement("strong");
-  // Show actual user name or 'User'
   strong.textContent = (userMap[message.user_id] || "User") + ":";
   p.appendChild(strong);
   p.appendChild(document.createTextNode(" " + message.content));
@@ -92,7 +92,7 @@ async function loadMessages() {
     .limit(50);
 
   if (error) console.error("Error loading messages:", error);
-  else data.forEach(msg => displayMessage(msg, usersMap));
+  else if (data) data.forEach(msg => displayMessage(msg, usersMap));
 }
 
 loadMessages();
@@ -100,15 +100,21 @@ loadMessages();
 sendBtn.addEventListener("click", async () => {
   const text = input.value.trim();
   if (text !== "") {
+    // Replace these with REAL user and room IDs from your Supabase database
+    const userId = "42a4d005-c820-4c49-9228-5c22f9e29f6e"; // Example real user ID
+    const roomId = "b74fb217-9515-474b-bee8-110f80563884"; // Example real room ID
     const { data, error } = await supabaseClient
       .from("messages")
-      .insert([{
-        user_id: "42a4d005-c820-4c49-9228-5c22f9e29f6e",     // Replace with actual user_id (from session/user record)
-        room_id: "b74fb217-9515-474b-bee8-110f80563884",     // Replace with actual room_id
-        content: text
-      }]);
-    if (error) console.error("Error sending message:", error);
-    else {
+      .insert([
+        {
+          user_id: userId,
+          room_id: roomId,
+          content: text
+        }
+      ]);
+    if (error) {
+      console.error("Error sending message:", error);
+    } else if (data && data.length > 0) {
       const usersMap = await fetchUsersMap();
       displayMessage(data[0], usersMap);
     }
